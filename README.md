@@ -142,7 +142,13 @@ FlashAttention optimizes the attention mechanism by reducing the number of memor
 
 *Figure 5: FlashAttention-2 benchmark results for A100 GPUs.*
 
-- This figure compares the performance of **FlashAttention-2**, **FlashAttention**, **PyTorch**, and other implementations on A100 GPUs across various sequence lengths and head dimensions. FlashAttention-2 achieves substantial improvements, especially for longer sequences, by leveraging enhanced parallelism and better memory handling. The results are displayed for different settings: with and without causal masking, and for head dimensions of 64 and 128.
+- This figure compares the speed (measured in TFLOPs/s) of **FlashAttention-2**, **FlashAttention**, **PyTorch**, and other implementations across various sequence lengths and head dimensions.
+- **FlashAttention-2** outperforms the other methods, especially at longer sequence lengths and higher head dimensions, due to its enhanced parallelism and efficient memory access patterns.
+- The charts show results for four scenarios:
+  - **(a) and (b)**: Without causal masking, for head dimensions 64 and 128.
+  - **(c) and (d)**: With causal masking, for head dimensions 64 and 128.
+- FlashAttention-2 maintains high performance even with longer sequences (up to 16k tokens) and larger head dimensions, while other implementations show a drop in speed or run out of memory (OOM).
+- The improvements demonstrate that **FlashAttention-2** optimizes both forward and backward pass computations, making it highly efficient for training large Transformer models.
 
 ### Parallelism and Work Partitioning
 
@@ -150,7 +156,9 @@ FlashAttention optimizes the attention mechanism by reducing the number of memor
 
 *Figure 6: Comparison of work partitioning between FlashAttention and FlashAttention-2.*
 
-- This figure illustrates how FlashAttention-2 optimizes parallel processing by dividing work more effectively among available GPU resources. The improved work partitioning reduces bottlenecks caused by synchronization between threads, making the overall computation faster. The comparison between FlashAttention and FlashAttention-2 shows how FlashAttention-2 assigns warps in a way that minimizes conflicts and maximizes efficiency.
+- **FlashAttention** (a): The **Q** matrix is shared across all warps, while **K** and **V** are split among warps, leading to potential synchronization delays.
+- **FlashAttention-2** (b): Reverses this by sharing **K** and **V** across all warps and splitting **Q** among them. This change reduces synchronization overhead, allowing each warp to work independently.
+- Result: **FlashAttention-2** optimizes parallelism, improves GPU utilization, and speeds up computation, especially for larger models and longer sequences.
 
 ## Critical Analysis
 
@@ -163,7 +171,6 @@ FlashAttention optimizes the attention mechanism by reducing the number of memor
 1. **Hardware Dependence**: These optimizations are heavily dependent on Nvidia’s CUDA architecture. As a result, models using FlashAttention may not perform as efficiently on non-Nvidia hardware, such as AMD GPUs or TPUs.
 2. **Complexity in Implementation**: The use of custom CUDA kernels and Nvidia’s CUTLASS libraries requires specialized knowledge, which can be a barrier for researchers without a deep understanding of GPU programming.
 3. **Limited Gains for Extremely Large Models**: Although FlashAttention-2 shows significant speedups, these gains might plateau as models exceed a certain size, due to bandwidth limitations of existing hardware.
-4. **Potential Bugs in Custom Kernels**: The use of highly specialized CUDA kernels increases the risk of undetected bugs, especially in edge cases that are not fully covered by the authors’ testing.
 
 ### Areas for Further Development
 1. **Broader Hardware Support**: Expanding support for AMD GPUs and TPUs could widen the applicability of these techniques.
@@ -182,8 +189,7 @@ FlashAttention optimizes the attention mechanism by reducing the number of memor
 
 ### Long-Term Impacts
 1. **New Possibilities for Large Models**: The ability to efficiently handle longer sequences opens the door to new applications in fields like **bioinformatics** (analyzing long DNA sequences) and **legal tech** (processing lengthy legal documents).
-2. **Influencing Hardware Development**: The demonstrated benefits of FlashAttention may influence future GPU designs, leading to better integration of SRAM and HBM, as well as improved parallel processing capabilities.
-3. **Cross-Disciplinary Applications**: With reduced costs and increased efficiency, Transformer models could be applied to domains like **drug discovery**, **climate modeling**, and **financial forecasting**, where handling large datasets efficiently is crucial.
+2. **Cross-Disciplinary Applications**: With reduced costs and increased efficiency, Transformer models could be applied to domains like **drug discovery**, **climate modeling**, and **financial forecasting**, where handling large datasets efficiently is crucial.
 
 ### Influence on AI Research
 1. **Shaping Future AI Architectures**: As models continue to grow in size, the techniques introduced by FlashAttention align well with the industry’s move towards more scalable, hardware-efficient AI models.
