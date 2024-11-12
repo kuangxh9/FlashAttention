@@ -142,13 +142,11 @@ FlashAttention optimizes the attention mechanism by reducing the number of memor
 
 *Figure 5: FlashAttention-2 benchmark results for A100 GPUs.*
 
-- This figure compares the speed (measured in TFLOPs/s) of **FlashAttention-2**, **FlashAttention**, **PyTorch**, and other implementations across various sequence lengths and head dimensions.
 - **FlashAttention-2** outperforms the other methods, especially at longer sequence lengths and higher head dimensions, due to its enhanced parallelism and efficient memory access patterns.
 - The charts show results for four scenarios:
   - **(a) and (b)**: Without causal masking, for head dimensions 64 and 128.
   - **(c) and (d)**: With causal masking, for head dimensions 64 and 128.
 - FlashAttention-2 maintains high performance even with longer sequences (up to 16k tokens) and larger head dimensions, while other implementations show a drop in speed or run out of memory (OOM).
-- The improvements demonstrate that **FlashAttention-2** optimizes both forward and backward pass computations, making it highly efficient for training large Transformer models.
 
 ### Parallelism and Work Partitioning
 
