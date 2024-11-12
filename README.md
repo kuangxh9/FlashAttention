@@ -168,7 +168,7 @@ FlashAttention optimizes the attention mechanism by reducing the number of memor
 ### Limitations
 1. **Hardware Dependence**: These optimizations are heavily dependent on Nvidia’s CUDA architecture. As a result, models using FlashAttention may not perform as efficiently on non-Nvidia hardware, such as AMD GPUs or TPUs.
 2. **Complexity in Implementation**: The use of custom CUDA kernels and Nvidia’s CUTLASS libraries requires specialized knowledge, which can be a barrier for researchers without a deep understanding of GPU programming.
-3. **Limited Gains for Extremely Large Models**: Although FlashAttention-2 shows significant speedups, these gains might plateau as models exceed a certain size, due to bandwidth limitations of existing hardware.
+
 
 ### Areas for Further Development
 1. **Broader Hardware Support**: Expanding support for AMD GPUs and TPUs could widen the applicability of these techniques.
