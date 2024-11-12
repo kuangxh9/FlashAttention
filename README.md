@@ -189,17 +189,11 @@ FlashAttention optimizes the attention mechanism by reducing the number of memor
 1. **New Possibilities for Large Models**: The ability to efficiently handle longer sequences opens the door to new applications in fields like **bioinformatics** (analyzing long DNA sequences) and **legal tech** (processing lengthy legal documents).
 2. **Cross-Disciplinary Applications**: With reduced costs and increased efficiency, Transformer models could be applied to domains like **drug discovery**, **climate modeling**, and **financial forecasting**, where handling large datasets efficiently is crucial.
 
-### Influence on AI Research
-1. **Shaping Future AI Architectures**: As models continue to grow in size, the techniques introduced by FlashAttention align well with the industry’s move towards more scalable, hardware-efficient AI models.
-2. **Setting a Benchmark for Optimization**: The success of FlashAttention may inspire further research into optimizing other bottlenecks in deep learning, such as reducing latency in data pipelines or optimizing models for emerging AI hardware like TPUs.
-3. **Integration with Emerging Technologies**: As Quantum Computing and AI hardware evolve, the principles of memory efficiency and parallelism seen in FlashAttention may be adapted to optimize these new technologies.
-
-
 
 ## Questions
 1. **How does FlashAttention-2 improve upon the original FlashAttention's work partitioning strategy?**
 2. **What are the benefits of supporting larger head dimensions in FlashAttention-2?**
-
+3. **What real-world applications can benefit the most from the speed and efficiency improvements offered by FlashAttention-2?**
 
 ## Code Demonstration
 A Jupyter notebook is provided in the repository to demonstrate how both **FlashAttention** and **FlashAttention-2** can be used to improve Transformer models.
